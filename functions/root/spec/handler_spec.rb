@@ -5,7 +5,12 @@ require 'handler'
 require 'json'
 
 describe '#handler' do
-  let(:body) { handler(event).body }
+  let(:body) do
+    VCR.use_cassette('dev.to/api/articles') do
+      handler(event).body
+    end
+  end
+
   let(:event) {
     Event.new(
       body: nil, query_params: {},
@@ -14,14 +19,8 @@ describe '#handler' do
   }
 
   context 'when function is requested' do
-    let(:response_value) {
-      JSON.parse(body).values.first
-    }
-    it 'returns a String' do
-      expect(body).to be_a(String)
-    end
-    it "returns 'Hello, World!'" do
-      expect(response_value).to eq('Hello, World!')
-    end
+    let(:json) { JSON.parse(body) }
+    it { expect(json['message']).to eq('articles of dev.to') }
+    it { expect(json['articles']).to be_an_instance_of(Array) }
   end
 end
