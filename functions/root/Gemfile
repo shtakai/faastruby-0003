@@ -9,6 +9,7 @@ gem 'json'
 group :test do
   gem 'faastruby'
   gem 'faastruby-rpc'
+  gem "json_matchers"
   gem 'rspec'
   gem 'webmock'
   gem 'vcr'
