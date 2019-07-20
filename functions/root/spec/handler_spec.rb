@@ -4,23 +4,26 @@ require 'spec_helper'
 require 'handler'
 require 'json'
 
-describe '#handler' do
-  let(:body) do
+RSpec.describe '#handler' do
+  let(:response) do
     VCR.use_cassette('dev.to/api/articles') do
-      handler(event).body
+      handler(event)
     end
   end
 
-  let(:event) {
+  let(:event) do
     Event.new(
       body: nil, query_params: {},
       headers: {}, context: nil
     )
-  }
+  end
 
   context 'when function is requested' do
-    let(:json) { JSON.parse(body) }
-    it { expect(json['message']).to eq('articles of dev.to') }
-    it { expect(json['articles']).to be_an_instance_of(Array) }
+    let(:body) { JSON.parse(response.body) }
+
+    it { expect(body['message']).to eq('articles of dev.to') }
+    it { expect(body['articles']).to be_an_instance_of(Array) }
+    it { expect(response.status).to eq 200 }
+    it { expect(response).to match_json_schema('articles') }
   end
 end

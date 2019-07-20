@@ -12,9 +12,9 @@ def handler event
   response = conn.get('api/articles')
   articles = JSON.parse(response.body).map do |article|
     {
-      id: article['id'],
-      url: article['url'],
-      title: article['title']
+      'id' => article['id'],
+      'url' => article['url'],
+      'title' => article['title']
     }
   end
   render json: { 'message' => 'articles of dev.to', 'articles' => articles }

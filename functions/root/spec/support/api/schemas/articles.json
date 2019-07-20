@@ -1,0 +1,19 @@
+{
+    "id": "file:/articles.json#",
+    "type": "object",
+    "required": [
+        "message",
+        "articles"
+    ],
+    "properties": {
+        "message": {
+            "type": "string"
+        },
+        "articles": {
+            "type": "array",
+            "items": {
+                "$ref": "file:/article.json#"
+            }
+        }
+    }
+}
