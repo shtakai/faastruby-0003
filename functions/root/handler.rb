@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
+require 'json'
+
 def handler event
-  response = {
-    'message' => "Welcome to FaaStRuby Local! Edit the function 'root' to customize this response."
-  }
-  render json: response
+  render json: { 'message' => 'Hello, World!' }
 end
+
