@@ -5,8 +5,16 @@ source 'https://rubygems.org'
 gem 'faraday'
 gem 'json'
 
+
 group :test do
   gem 'faastruby'
   gem 'faastruby-rpc'
+  gem "json_matchers"
   gem 'rspec'
+  gem 'webmock'
+  gem 'vcr'
+end
+
+group :development, :test do
+  gem 'pry-byebug'
 end
